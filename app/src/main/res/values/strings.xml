@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DressNice</string>
+    <string name="app_name">Wear Me</string>
     <string name="title_activity_nav_bar">Nav_bar</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -15,4 +15,9 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="title_activity_navigation_bar">Navigation_bar</string>
+
+    <string name="title_shop">Shop</string>
+    <string name="title_search">Search</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_myOrders">My Orders</string>
 </resources>

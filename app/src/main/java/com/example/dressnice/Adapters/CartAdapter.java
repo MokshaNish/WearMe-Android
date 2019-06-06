@@ -1,7 +1,6 @@
 package com.example.dressnice.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +35,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name;
-        public TextView price;
+        public TextView price,qty;
         public ImageView image;
         public LinearLayout linearLayout;
         public Button add, sub, remove;
@@ -45,13 +44,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            name = (TextView) itemView.findViewById(R.id.lbl_name);
-            price = (TextView) itemView.findViewById(R.id.lbl_price);
-            image = (ImageView) itemView.findViewById(R.id.image);
+            name = (TextView) itemView.findViewById(R.id.tvName);
+            price = (TextView) itemView.findViewById(R.id.tvprice);
+            image = (ImageView) itemView.findViewById(R.id.imageCart);
+            qty = (TextView) itemView.findViewById(R.id.tvQty);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linear_row_id);
-            add = (Button) itemView.findViewById(R.id.btn_add);
-            sub = (Button) itemView.findViewById(R.id.btn_sub);
-            remove = (Button) itemView.findViewById(R.id.btn_remove);
+            add = (Button) itemView.findViewById(R.id.btnAdd);
+            sub = (Button) itemView.findViewById(R.id.btnSub);
+            remove = (Button) itemView.findViewById(R.id.btnRemove);
         }
     }
 
@@ -60,6 +60,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         final OrderItem orderItem = orderItems.get(position);
         holder.name.setText(orderItem.getProduct().getName());
+        holder.qty.setText(orderItem.getProduct().getQuantity());
         holder.price.setText(String.valueOf(orderItem.getProduct().getPrice()));
         Picasso.get()
                 .load(orderItem.getProduct().getImageUrl())
