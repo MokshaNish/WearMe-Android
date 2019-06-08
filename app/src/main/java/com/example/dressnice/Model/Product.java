@@ -19,22 +19,24 @@ public class Product {
     @SerializedName("imageUrl")
     private String imageUrl;
 
-    public Product(int pid, String name, double price, int quantity, String imageUrl) {
-        this.pid = pid;
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.imageUrl = imageUrl;
-    }
+    @SerializedName("category")
+    private Category category;
 
-    public int getId() {
+    public int getPid() {
         return pid;
     }
 
-    public void setId(int id) {
-        this.pid = id;
+    public void setPid(int pid) {
+        this.pid = pid;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
     public String getName() {
         return name;
     }

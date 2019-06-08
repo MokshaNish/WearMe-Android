@@ -15,12 +15,14 @@ import retrofit2.http.Path;
 public interface CartService {
 
     @POST("cart/add")
-    OrderItem add(@Body CartForm cartForm);
+    Call<OrderItem> addToCart(@Body CartForm cartForm);
 
     @GET("cart/user-id/{userId}")
     Call<Cart> getCartByUserId(@Path("userId") int userId);
 
     @GET("cart/all")
     Call <List<OrderItem>> getAllCartItems();
+
+
 
 }

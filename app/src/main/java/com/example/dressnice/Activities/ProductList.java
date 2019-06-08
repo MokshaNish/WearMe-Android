@@ -38,40 +38,7 @@ public class ProductList extends AppCompatActivity {
         setContentView(R.layout.activity_product);
 
         init();
-
-        toolbar = getSupportActionBar();
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        toolbar.setTitle("Shop");
     }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-            switch (item.getItemId()) {
-                case R.id.navigation_shop:
-                    toolbar.setTitle("Shop");
-                    return true;
-                case R.id.navigation_search:
-                    toolbar.setTitle("Serch");
-                    return true;
-                case R.id.navigation_cart:
-                    toolbar.setTitle("Cart");
-                    return true;
-                case R.id.navigation_myOrders:
-                    toolbar.setTitle("My Orders");
-                    return true;
-            }
-            return false;
-        }
-    };
-
-
 
     private void init() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
