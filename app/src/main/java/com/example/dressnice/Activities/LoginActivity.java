@@ -32,11 +32,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        userName = (EditText) findViewById(R.id.usernametext);
-        password = (EditText) findViewById(R.id.passwordtext);
+        SharedPreferences prefs = SharedPreferenceMgr.getSharedPrefs(this);
+        int cartId = prefs.getInt("cartId", 0);
+        int userId = prefs.getInt("userId", 0);
 
-        loginbutton = (Button) findViewById(R.id.loginbutton);
-        signup_button = (Button) findViewById(R.id.btnRegiser);
+        if (cartId != 0 && userId != 0) {
+            getCart(userId);
+            Intent intent = new Intent(getApplicationContext(), ProductList.class);
+            startActivity(intent);
+        }
+
+        userName = findViewById(R.id.usernametext);
+        password = findViewById(R.id.passwordtext);
+
+        loginbutton = findViewById(R.id.loginbutton);
+        signup_button = findViewById(R.id.btnRegiser);
 
     }
 

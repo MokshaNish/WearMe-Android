@@ -5,6 +5,7 @@ import com.example.dressnice.Model.CartForm;
 import com.example.dressnice.Model.OrderItem;
 
 import java.util.List;
+import java.util.Optional;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,8 +22,10 @@ public interface CartService {
     Call<Cart> getCartByUserId(@Path("userId") int userId);
 
     @GET("cart/all")
-    Call <List<OrderItem>> getAllCartItems();
+    Call<List<OrderItem>> getAllCartItems();
 
+    @GET("cart/{id}")
+    Call<Cart> getCart(@Path("id") int id);
 
 
 }

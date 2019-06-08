@@ -26,9 +26,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductList extends AppCompatActivity {
+
     private RecyclerView recyclerView;
     private ProductAdapter adapter;
-
     private ActionBar toolbar;
     private List<Product> products;
 
@@ -41,10 +41,10 @@ public class ProductList extends AppCompatActivity {
     }
 
     private void init() {
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
         products = new ArrayList<>();
         adapter = new ProductAdapter(products, this);
         recyclerView.setAdapter(adapter);
@@ -61,13 +61,11 @@ public class ProductList extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful()) {
-//                testresult.setText("code" +response.code());
                     products.clear();
                     products = response.body();
                     adapter.setProducts(products);
                     adapter.notifyDataSetChanged();
                 } else {
-//                    Log.d()
                     System.out.println(response);
                 }
             }

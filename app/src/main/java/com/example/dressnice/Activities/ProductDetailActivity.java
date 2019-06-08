@@ -46,7 +46,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         viewProductDetails();
 
         sharebtn = (Button)findViewById(R.id.buttonshare);
-
         sharebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +115,15 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+    }
+
+    public void transfer(View view){
+
+        Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+        startActivity(intent);
 
 
 

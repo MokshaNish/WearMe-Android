@@ -1,5 +1,6 @@
 package com.example.dressnice.Activities;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import com.example.dressnice.Adapters.CartAdapter;
 import com.example.dressnice.Adapters.ProductAdapter;
 import com.example.dressnice.Client.APICLIENT;
+import com.example.dressnice.Client.SharedPreferenceMgr;
+import com.example.dressnice.Model.Cart;
 import com.example.dressnice.Model.OrderItem;
 import com.example.dressnice.Model.Product;
 import com.example.dressnice.R;
@@ -26,7 +29,7 @@ public class CartActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private CartAdapter adapter;
-    private List<OrderItem> orderItem;
+    private List<OrderItem> orderItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +45,26 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        orderItem = new ArrayList<>();
-        adapter = new CartAdapter(orderItem, this);
+        orderItems = new ArrayList<>();
+        adapter = new CartAdapter(orderItems, this);
         recyclerView.setAdapter(adapter);
     }
 
     private void loadRecylerViewData() {
 
-        CartService cartService = APICLIENT.getClient().create(CartService.class);
-        Call<List<OrderItem>> call = cartService.getAllCartItems();
+        SharedPreferences prefs = SharedPreferenceMgr.getSharedPrefs(this);
+        int cardId = prefs.getInt("cartId", 0);
 
-        call.enqueue(new Callback<List<OrderItem>>() {
+        CartService cartService = APICLIENT.getClient().create(CartService.class);
+        Call<Cart> call = cartService.getCart(cardId);
+        call.enqueue(new Callback<Cart>() {
             @Override
-            public void onResponse(Call<List<OrderItem>> call, Response<List<OrderItem>> response) {
+            public void onResponse(Call<Cart> call, Response<Cart> response) {
                 if (response.isSuccessful()) {
-                    orderItem.clear();
-                    orderItem = response.body();
-                    adapter.setProducts(orderItem);
+                    orderItems.clear();
+                    Cart cart = response.body();
+                    orderItems = cart.getOrderItems();
+                    adapter.setOrderItems(orderItems);
                     adapter.notifyDataSetChanged();
                 } else {
 //                    Log.d()
@@ -67,7 +73,7 @@ public class CartActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<OrderItem>> call, Throwable t) {
+            public void onFailure(Call<Cart> call, Throwable t) {
 
             }
         });
