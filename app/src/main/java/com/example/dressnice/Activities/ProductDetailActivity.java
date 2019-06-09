@@ -104,6 +104,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<OrderItem> call, Response<OrderItem> response) {
                 if (response.isSuccessful()) {
+                    btnAddToCart.setEnabled(false);
                     Toast.makeText(getApplicationContext(), "Successfully added to the cart", Toast.LENGTH_SHORT);
 //                    Intent intent = new Intent(getApplicationContext(), CartActivity.class);
 //                    startActivity(intent);

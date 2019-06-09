@@ -49,7 +49,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name;
-        public TextView price, qty;
+        public TextView price, qty,subTotal;
         public ImageView image;
         public LinearLayout linearLayout;
         public Button add, sub, remove;
@@ -62,11 +62,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             price = itemView.findViewById(R.id.tvprice);
             image = itemView.findViewById(R.id.imageCart);
             qty = itemView.findViewById(R.id.tvQty);
+            subTotal = itemView.findViewById(R.id.tvSubTotal);
 
             linearLayout = itemView.findViewById(R.id.linear_row_id);
             add = itemView.findViewById(R.id.btnAdd);
             sub = itemView.findViewById(R.id.btnSub);
-            remove = itemView.findViewById(R.id.btnRemove);
+
 
 
         }
@@ -104,7 +105,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public int getItemCount() {
         return orderItems.size();
     }
-
 
     public void setOrderItems(List<OrderItem> orderItem) {
         this.orderItems = orderItem;

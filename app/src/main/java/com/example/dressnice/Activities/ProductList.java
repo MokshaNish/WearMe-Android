@@ -48,10 +48,10 @@ public class ProductList extends AppCompatActivity {
         products = new ArrayList<>();
         adapter = new ProductAdapter(products, this);
         recyclerView.setAdapter(adapter);
-        loadRecylerViewData();
+        loadRecyclerViewData();
     }
 
-    private void loadRecylerViewData() {
+    private void loadRecyclerViewData() {
 
 
         ProductService productService = APICLIENT.getClient().create(ProductService.class);

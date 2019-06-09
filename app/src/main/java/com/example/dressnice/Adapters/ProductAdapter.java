@@ -85,8 +85,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return products.size();
     }
 
-
-
     public void setProducts(List<Product> products){
         this.products = products;
     }

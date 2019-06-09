@@ -34,6 +34,7 @@ public class BottomNavigationBarActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             switch (item.getItemId()) {
+
                 case R.id.navigation_shop:
                     toolbar.setTitle("Shop");
                     Intent a = new Intent(BottomNavigationBarActivity.this,ProductList.class);

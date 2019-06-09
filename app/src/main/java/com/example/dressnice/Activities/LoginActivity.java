@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.dressnice.Client.APICLIENT;
 import com.example.dressnice.Client.SharedPreferenceMgr;
@@ -44,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
 
         userName = findViewById(R.id.usernametext);
         password = findViewById(R.id.passwordtext);
-
         loginbutton = findViewById(R.id.loginbutton);
         signup_button = findViewById(R.id.btnRegiser);
 
@@ -54,13 +54,11 @@ public class LoginActivity extends AppCompatActivity {
 
         String email = userName.getText().toString().trim();
         String pwd = password.getText().toString().trim();
-
         if (email.isEmpty()) {
             userName.setError("Email is required");
             userName.requestFocus();
             return;
         }
-
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             userName.setError("Enter a valid email");
             userName.requestFocus();
@@ -91,20 +89,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
-
                     User user = response.body();
-
                     SharedPreferences sharedPreferences = SharedPreferenceMgr.getSharedPrefs(getApplicationContext());
-
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("userId", user.getId());
                     editor.putString("email", user.getEmail());
                     editor.commit();
-
                     getCart(user.getId());
                     Intent intent = new Intent(getApplicationContext(), ProductList.class);
                     startActivity(intent);
-
 
                 } else {
 //                    Log.d()
@@ -129,23 +122,18 @@ public class LoginActivity extends AppCompatActivity {
 
         CartService cartService = APICLIENT.getClient().create(CartService.class);
         Call<Cart> call = cartService.getCartByUserId(userId);
-
         call.enqueue(new Callback<Cart>() {
             @Override
             public void onResponse(Call<Cart> call, Response<Cart> response) {
                 if (response.isSuccessful()) {
-
                     Cart cart = response.body();
-
                     SharedPreferences sharedPreferences = SharedPreferenceMgr.getSharedPrefs(getApplicationContext());
-
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("cartId", cart.getId());
                     editor.commit();
-
                 } else {
 //                    Log.d()
-                    System.out.println("Cart is not found" + response);
+                    Toast.makeText(getApplicationContext(), "cartId is incorrect", Toast.LENGTH_SHORT);
                 }
             }
 
