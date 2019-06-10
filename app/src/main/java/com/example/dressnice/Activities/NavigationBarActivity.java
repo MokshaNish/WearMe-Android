@@ -1,9 +1,10 @@
-package com.example.dressnice;
+package com.example.dressnice.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,9 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
-import com.example.dressnice.Activities.ProductList;
+import com.example.dressnice.Fragments.HomeFragment;
+import com.example.dressnice.R;
 
-public class Navigation_bar extends AppCompatActivity
+public class NavigationBarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -41,6 +43,14 @@ public class Navigation_bar extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fMain,new HomeFragment());
+        ft.commit();
+
+        navigationView.setCheckedItem(R.id.nav_home);
 
 
     }
@@ -84,21 +94,35 @@ public class Navigation_bar extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent shop = new Intent(Navigation_bar.this, ProductList.class);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fMain,new HomeFragment());
+            ft.commit();
+
+
+
+        } else if (id == R.id.shop) {
+            Intent shop = new Intent(NavigationBarActivity.this, ProductList.class);
+            startActivity(shop);
+
+        }else if (id == R.id.search) {
+            Intent shop = new Intent(NavigationBarActivity.this, SearchActivity.class);
             startActivity(shop);
 
 
 
-        } else if (id == R.id.nav_gallery) {
+        }
+        else if (id == R.id.nav_gallery) {
+
+            Intent shop = new Intent(NavigationBarActivity.this, CartActivity.class);
+            startActivity(shop);
+
 
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_tools) {
+            Intent shop = new Intent(NavigationBarActivity.this, MyOrdersActivity.class);
+            startActivity(shop);
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

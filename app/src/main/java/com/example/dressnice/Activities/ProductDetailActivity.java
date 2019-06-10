@@ -130,6 +130,15 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
 
+    public void search(View view){
+
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        startActivity(intent);
+
+
+
+    }
+
 
 
 }

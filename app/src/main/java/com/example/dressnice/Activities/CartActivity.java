@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.dressnice.Adapters.CartAdapter;
 import com.example.dressnice.Adapters.ProductAdapter;
@@ -30,6 +32,8 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CartAdapter adapter;
     private List<OrderItem> orderItems;
+    private TextView totalprice;
+    private Button checkoutbtn, clearCartbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,10 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void init() {
-        recyclerView = (RecyclerView) findViewById(R.id.cartRecycle);
+        recyclerView = findViewById(R.id.cartRecycle);
+        totalprice = findViewById(R.id.tvtotal);
+        checkoutbtn = findViewById(R.id.btnCheckout);
+        clearCartbtn = findViewById(R.id.btnClearCart);
         recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -66,6 +73,7 @@ public class CartActivity extends AppCompatActivity {
                     orderItems = cart.getOrderItems();
                     adapter.setOrderItems(orderItems);
                     adapter.notifyDataSetChanged();
+                    calculateTotal();
                 } else {
 //                    Log.d()
                     System.out.println(response);
@@ -80,4 +88,13 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
+    public void calculateTotal() {
+        double total = 0;
+        for (OrderItem o : orderItems) {
+            double price = o.getProduct().getPrice();
+            int qty = o.getQuantity();
+            total += price * qty;
+        }
+        totalprice.setText(String.valueOf(total));
+    }
 }

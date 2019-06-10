@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (cartId != 0 && userId != 0) {
             getCart(userId);
-            Intent intent = new Intent(getApplicationContext(), ProductList.class);
+            Intent intent = new Intent(getApplicationContext(), NavigationBarActivity.class);
             startActivity(intent);
         }
 
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
 //                    Log.d()
-                    System.out.println(" You are not an regisster person" + response);
+                    System.out.println(" You are not an register person" + response);
                 }
             }
 

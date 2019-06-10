@@ -58,15 +58,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.tvName);
-            price = itemView.findViewById(R.id.tvprice);
+            name = itemView.findViewById(R.id.tvItemName);
+            price = itemView.findViewById(R.id.tvPrice);
             image = itemView.findViewById(R.id.imageCart);
             qty = itemView.findViewById(R.id.tvQty);
             subTotal = itemView.findViewById(R.id.tvSubTotal);
 
             linearLayout = itemView.findViewById(R.id.linear_row_id);
-            add = itemView.findViewById(R.id.btnAdd);
-            sub = itemView.findViewById(R.id.btnSub);
+            add = itemView.findViewById(R.id.btnadd);
+            sub = itemView.findViewById(R.id.btnsub);
 
 
 
@@ -82,7 +82,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.price.setText(String.valueOf(orderItem.getProduct().getPrice()));
         Picasso.get()
                 .load(orderItem.getProduct().getImageUrl())
-                .resize(150, 400)
+                .resize(150, 150)
                 .into(holder.image);
 
         holder.add.setOnClickListener(new View.OnClickListener() {

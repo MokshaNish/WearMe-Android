@@ -63,4 +63,9 @@
     <string name="order_id">Order Id #%d</string>
     <string name="transaction_failed">Transaction Failed</string>
     <string name="transactions">NO DATA</string>
+
+
+    <string name="toolbar_title">Products</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Type name…</string>
 </resources>

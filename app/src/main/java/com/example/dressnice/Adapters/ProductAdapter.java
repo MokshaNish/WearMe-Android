@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,9 +18,10 @@ import com.example.dressnice.R;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable {
 
     private List<Product> products;
     private Context context;
@@ -27,7 +30,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public ProductAdapter(List<Product> products, Context context) {
         this.products = products;
         this.context = context;
-        this.filteredProducts=filteredProducts;
+        this.filteredProducts = products;
     }
 
     @Override
@@ -44,14 +47,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         public LinearLayout linearLayout;
 
 
-
         public ViewHolder(View itemView) {
             super(itemView);
 
-            name = (TextView) itemView.findViewById(R.id.textViewHeading);
-            price = (TextView) itemView.findViewById(R.id.textPrice);
-            image = (ImageView) itemView.findViewById(R.id.imageViewList);
-            linearLayout = (LinearLayout) itemView.findViewById(R.id.linear_row_id);
+            name = itemView.findViewById(R.id.textViewHeading);
+            price = itemView.findViewById(R.id.textPrice);
+            image = itemView.findViewById(R.id.imageViewList);
+            linearLayout = itemView.findViewById(R.id.linear_row_id);
         }
 
     }
@@ -59,7 +61,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        final Product product = products.get(position);
+        final Product product = filteredProducts.get(position);
         holder.name.setText(product.getName());
         holder.price.setText(String.valueOf(product.getPrice()));
         Picasso.get()
@@ -82,10 +84,44 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return filteredProducts.size();
     }
 
-    public void setProducts(List<Product> products){
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    filteredProducts = products;
+                } else {
+                    List<Product> filteredList = new ArrayList<>();
+                    for (Product row : products) {
+
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    filteredProducts = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredProducts;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                filteredProducts = (ArrayList<Product>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    public void setProducts(List<Product> products) {
+        this.filteredProducts = products;
         this.products = products;
     }
 }

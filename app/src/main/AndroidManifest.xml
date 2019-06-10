@@ -12,14 +12,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.MyOrdersActivity"></activity>
-        <activity android:name=".Activities.SearchActivity" />
-        <activity android:name=".Activities.BottomNavigationBarActivity" />
-        <activity android:name=".Activities.CartActivity" />
-        <activity android:name=".Activities.ProductDetailActivity" />
-        <activity android:name=".Activities.ProductList" />
+        <activity android:name=".Activities.CheckoutActivity"></activity>
+        <activity android:name=".Activities.MyOrdersActivity" />
         <activity
-            android:name=".Navigation_bar"
+            android:name=".Activities.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.NavigationBarActivity"/>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.BottomNavigationBarActivity" />
+        <activity android:name=".Activities.CartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.NavigationBarActivity"/>
+        </activity>
+        <activity android:name=".Activities.ProductDetailActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.ProductList"/>
+
+        </activity>
+        <activity android:name=".Activities.ProductList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.NavigationBarActivity"/>
+
+        </activity>
+        <activity
+            android:name=".Activities.NavigationBarActivity"
             android:label="@string/title_activity_navigation_bar"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.RegisterActivity" />
